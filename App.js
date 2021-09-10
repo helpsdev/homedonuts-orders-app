@@ -53,7 +53,7 @@ export default function App() {
 
     setSelectedDonuts([...selectedDonuts, donut]);
     setDonutName('');
-    setDonutPrice('');
+    setDonutPrice(0);
   }
 
   const handleRemoveDonut = (donut) => {
@@ -63,34 +63,39 @@ export default function App() {
   if (isHomePage) {
     return (
       <View style={styles.homePageContainer}>
-        <TextInput style={styles.textInput} placeholder="Donut name" onChangeText={setDonutName}/>
-        <TextInput style={styles.textInput} placeholder="Donut price" onChangeText={setDonutPrice} keyboardType="number-pad" />
+        <TextInput style={styles.textInput} placeholder="Donut name" onChangeText={(name) => setDonutName(name)} value={donutName}/>
+        <TextInput style={styles.textInput} placeholder="Donut price" onChangeText={(price) => setDonutPrice(+price)} keyboardType="number-pad" value={donutPrice === 0 ? '' : donutPrice.toString()} />
         <Button title="Add" onPress={() => handleAddDonut()}></Button>
         <Button title="Next" onPress={() => setIsHomePage(false)}></Button>
         <FlatList data={selectedDonuts}
-            renderItem={({item}) => <Button title={item.name} onPress={() => handleRemoveDonut(item)}
-            keyExtractor={(item, index) => index.toString()}></Button>}></FlatList>
+            renderItem={({item}) => <Button title={item.name} onPress={() => handleRemoveDonut(item)}></Button>}
+            keyExtractor={(item, index) => index.toString()}
+          />
       </View>
     );
   }else{
     return (
-      <View>
+      <View style={styles.orderContainer}>
         {
           selectedDonuts.map((donut) => {
             return(
-              <View key={donut.key}>
-                <Text>{donut.name}</Text>
-                <Button title="+" onPress={() => handleAddToOrder(donut)}></Button>
-                <Button title="-" onPress={() => handleRemoveFromOrder(donut)}></Button>
+              <View key={donut.key} style={styles.quantityContainer}>
+                <View style={{ flex: 1 }}>
+                  <Button title="+" onPress={() => handleAddToOrder(donut)}></Button>
+                </View>
+                <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{donut.name}</Text>
+                <View style={{ flex: 1 }}>
+                  <Button title="-" onPress={() => handleRemoveFromOrder(donut)}></Button>
+                </View>
               </View>
             );
           })
         }
-        <Text>The total is: ${total}</Text>
+        <Text style={styles.text}>The total is: ${total}</Text>
         <Button title="Clear" onPress={() => handleClearOrder()}></Button>
-        <Text>The order:</Text>
+        <Text style={styles.text}>The order:</Text>
         <FlatList data={Object.values(order)}
-          renderItem={({item}) => <Text>{item.name} x{item.count}</Text>} 
+          renderItem={({item}) => <Text style={styles.text}>{item.name} x{item.count}</Text>} 
           keyExtractor={(item, index) => index.toString()}/>
         <Button title="Back" onPress={() => setIsHomePage(true)}></Button>
       </View>
@@ -100,12 +105,6 @@ export default function App() {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   homePageContainer: {
     flex: 1,
     marginTop: 25,
@@ -117,5 +116,16 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     marginBottom: 5,
-  }
+  },
+  orderContainer:{
+    paddingTop: 25,
+    flex: 1,
+  },
+  quantityContainer:{
+    flex: 1,
+    flexDirection: "row",
+  },
+  text:{
+    fontSize: 20,
+  },
 });
