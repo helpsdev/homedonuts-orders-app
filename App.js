@@ -62,16 +62,28 @@ export default function App() {
 
   if (isHomePage) {
     return (
-      <View style={styles.homePageContainer}>
-        <TextInput style={styles.textInput} placeholder="Donut name" onChangeText={(name) => setDonutName(name)} value={donutName}/>
-        <TextInput style={styles.textInput} placeholder="Donut price" onChangeText={(price) => setDonutPrice(+price)} keyboardType="number-pad" value={donutPrice === 0 ? '' : donutPrice.toString()} />
-        <Button title="Add" onPress={() => handleAddDonut()}></Button>
-        <Button title="Next" onPress={() => setIsHomePage(false)}></Button>
-        <FlatList data={selectedDonuts}
-            renderItem={({item}) => <Button title={item.name} onPress={() => handleRemoveDonut(item)}></Button>}
-            keyExtractor={(item, index) => index.toString()}
-          />
-      </View>
+      <>
+        <View style={styles.homePageContainer}>
+          <TextInput style={styles.textInput} placeholder="Donut name" onChangeText={(name) => setDonutName(name)} value={donutName}/>
+          <TextInput style={styles.textInput} placeholder="Donut price" onChangeText={(price) => setDonutPrice(+price)} keyboardType="number-pad" value={donutPrice === 0 ? '' : donutPrice.toString()} />
+          <View style={{flex: 1}}>
+            <Button title="Add Donut" onPress={() => handleAddDonut()}></Button>
+            <Button title="Go To Orders" onPress={() => setIsHomePage(false)}></Button>
+          </View>
+        </View>
+        <View style={{flex: 3, justifyContent: "space-between", marginTop: 20}}>
+          <FlatList data={selectedDonuts}
+              renderItem={({item}) => {
+                return (
+                  <View style={{marginHorizontal: 10}}>
+                    <Button title={item.name} onPress={() => handleRemoveDonut(item)}></Button>
+                  </View>
+                );
+              }}
+              keyExtractor={(item, index) => index.toString()}
+            />
+        </View>
+      </>
     );
   }else{
     return (
@@ -81,11 +93,11 @@ export default function App() {
             return(
               <View key={donut.key} style={styles.quantityContainer}>
                 <View style={{ flex: 1 }}>
-                  <Button title="+" onPress={() => handleAddToOrder(donut)}></Button>
+                  <Button title="-" onPress={() => handleRemoveFromOrder(donut)}></Button>
                 </View>
                 <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{donut.name}</Text>
                 <View style={{ flex: 1 }}>
-                  <Button title="-" onPress={() => handleRemoveFromOrder(donut)}></Button>
+                  <Button title="+" onPress={() => handleAddToOrder(donut)}></Button>
                 </View>
               </View>
             );
@@ -108,6 +120,7 @@ const styles = StyleSheet.create({
   homePageContainer: {
     flex: 1,
     marginTop: 25,
+    marginHorizontal: 10,
   },
   textInput:{
     paddingTop: 10,
