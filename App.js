@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TextInput, Modal } from 'react-native';
 
 export default function App() {
   const [total, setTotal] = useState(0);
@@ -8,6 +8,9 @@ export default function App() {
   const [order, setOrder] = useState({});
   const [donutName, setDonutName] = useState(null);
   const [donutPrice, setDonutPrice] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [clientPayment, setClientPayment] = useState(0);
+  const [isCloseOrderButtonEnabled, setIsCloseOrderButtonEnabled] = useState(false);
   
   const handleAddToOrder = (donut) => {
     if (order[donut.key]) {
@@ -60,6 +63,17 @@ export default function App() {
     setSelectedDonuts(selectedDonuts.filter((d => d.key !== donut.key)))
   }
 
+  const handleCloseOrder = () => {
+    handleClearOrder();
+    setModalVisible(false);
+  }
+
+  const handlePayment = (payment) => {
+    const paymentInt = +payment;
+    
+    setClientPayment(paymentInt);
+    setIsCloseOrderButtonEnabled(paymentInt > total);
+  }
   if (isHomePage) {
     return (
       <>
@@ -103,13 +117,31 @@ export default function App() {
             );
           })
         }
-        <Text style={styles.text}>The total is: ${total}</Text>
+        <Text style={{ fontSize: 20 }}>The total is: ${total}</Text>
         <Button title="Clear" onPress={() => handleClearOrder()}></Button>
-        <Text style={styles.text}>The order:</Text>
+        <Text style={{ fontSize: 20 }}>The order:</Text>
         <FlatList data={Object.values(order)}
-          renderItem={({item}) => <Text style={styles.text}>{item.name} x{item.count}</Text>} 
+          renderItem={({item}) => <Text style={{ fontSize: 20, borderBottomWidth: 1 }}>{item.name} x{item.count}</Text>} 
           keyExtractor={(item, index) => index.toString()}/>
-        <Button title="Back" onPress={() => setIsHomePage(true)}></Button>
+        <View style={{marginVertical: 10}}>
+          <Button title="Close Order" onPress={() => setModalVisible(true)}></Button>
+        </View>
+        <View>
+          <Button title="Back" onPress={() => setIsHomePage(true)}></Button>
+        </View>
+        <Modal
+          animationType="slide"
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={{ flex: 1, justifyContent: "center"}}>
+            <Text style={{fontSize: 50}}>Total: ${total}</Text>
+            <TextInput style={{fontSize: 50}} placeholder="Payment" onChangeText={(text) => handlePayment(text)}></TextInput>
+            <Text style={{fontSize: 50}}>Change: ${clientPayment - total}</Text>
+            <View>
+              <Button disabled={!isCloseOrderButtonEnabled} title="OK" onPress={() => handleCloseOrder()}></Button>
+            </View>
+          </View>
+        </Modal>
       </View>
     );  
   }
@@ -137,8 +169,5 @@ const styles = StyleSheet.create({
   quantityContainer:{
     flex: 1,
     flexDirection: "row",
-  },
-  text:{
-    fontSize: 20,
   },
 });
