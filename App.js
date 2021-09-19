@@ -153,13 +153,15 @@ export default function App() {
   const handleCloseOrder = () => {
     handleClearOrder();
     setModalVisible(false);
+    setClientPayment(0);
+    setIsCloseOrderButtonEnabled(false);
   }
 
   const handlePayment = (payment) => {
     const paymentInt = +payment;
     
     setClientPayment(paymentInt);
-    setIsCloseOrderButtonEnabled(paymentInt > total);
+    setIsCloseOrderButtonEnabled(paymentInt >= total);
   }
   if (isHomePage) {
     return (
@@ -209,7 +211,7 @@ export default function App() {
         <Text style={{ fontSize: 20 }}>The total is: ${total}</Text>
         <Button title="Clear" onPress={() => handleClearOrder()}></Button>
         <View style={{height: '50%'}}>
-          <Text style={{ fontSize: 20 }}>The order:</Text>
+          <Text style={{ fontSize: 20 }}>Quantity: { Object.values(order).reduce((dq, donut) => dq + donut.count, 0) }</Text>
           <FlatList data={Object.values(order)}
             renderItem={({item}) => <Text style={{ fontSize: 20, borderBottomWidth: 1 }}>{item.name} x{item.count}</Text>} 
             keyExtractor={(item, index) => index.toString()}/>
@@ -226,7 +228,7 @@ export default function App() {
           onRequestClose={() => setModalVisible(false)}>
           <View style={{ flex: 1, justifyContent: "center"}}>
             <Text style={{fontSize: 50}}>Total: ${total}</Text>
-            <TextInput style={{fontSize: 50}} placeholder="Payment" onChangeText={(text) => handlePayment(text)}></TextInput>
+            <TextInput keyboardType="number-pad" style={{fontSize: 50}} placeholder="Payment" onChangeText={(text) => handlePayment(text)}></TextInput>
             <Text style={{fontSize: 50}}>Change: ${clientPayment - total}</Text>
             <View>
               <Button disabled={!isCloseOrderButtonEnabled} title="OK" onPress={() => handleCloseOrder()}></Button>
