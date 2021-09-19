@@ -123,9 +123,8 @@ export default function App() {
         order[donut.key].count -= 1;
       }
       setOrder({...order});
+      setTotal(total - donut.price);
     }
-    
-    setTotal(total - donut.price);
   }
 
   const handleClearOrder = () => {
