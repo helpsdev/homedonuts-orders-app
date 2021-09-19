@@ -1,10 +1,98 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TextInput, Modal } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TextInput, Modal, ScrollView } from 'react-native';
+
+const testDonuts = [
+  {
+    name: 'Mora',
+    price: 13,
+    key: 1,
+  },
+  {
+    name: 'Chocolate',
+    price: 13,
+    key: 2,
+  },
+  {
+    name: 'Platano',
+    price: 13,
+    key: 3,
+  },
+  {
+    name: 'Limon',
+    price: 13,
+    key: 4,
+  },
+  {
+    name: 'Mazapan',
+    price: 19,
+    key: 5,
+  },
+  {
+    name: 'Aleman',
+    price: 19,
+    key: 6,
+  },
+  {
+    name: 'Snicker',
+    price: 19,
+    key: 7,
+  },
+  {
+    name: 'Enjambre',
+    price: 19,
+    key: 8,
+  },
+  {
+    name: 'Homero',
+    price: 16,
+    key: 9,
+  },
+  {
+    name: 'Glaseado',
+    price: 13,
+    key: 10,
+  },
+  {
+    name: 'Platano nuez',
+    price: 19,
+    key: 11,
+  },
+  {
+    name: 'Nutella',
+    price: 19,
+    key: 12,
+  },
+  {
+    name: 'Gansito',
+    price: 29,
+    key: 13,
+  },
+  {
+    name: 'Chocorrol',
+    price: 29,
+    key: 14,
+  },
+  {
+    name: 'Oreo',
+    price: 19,
+    key: 15,
+  },
+  {
+    name: 'Fresa',
+    price: 13,
+    key: 16,
+  },
+  {
+    name: 'Azucar cajeta',
+    price: 19,
+    key: 17,
+  },
+]
 
 export default function App() {
   const [total, setTotal] = useState(0);
   const [isHomePage, setIsHomePage] = useState(true);
-  const [selectedDonuts, setSelectedDonuts] = useState([]);
+  const [selectedDonuts, setSelectedDonuts] = useState(testDonuts);
   const [order, setOrder] = useState({});
   const [donutName, setDonutName] = useState(null);
   const [donutPrice, setDonutPrice] = useState(0);
@@ -102,32 +190,36 @@ export default function App() {
   }else{
     return (
       <View style={styles.orderContainer}>
-        {
-          selectedDonuts.map((donut) => {
-            return(
-              <View key={donut.key} style={styles.quantityContainer}>
-                <View style={{ flex: 1 }}>
-                  <Button title="-" onPress={() => handleRemoveFromOrder(donut)}></Button>
+        <ScrollView style={{height: '50%'}}>
+          {
+            selectedDonuts.map((donut) => {
+              return(
+                <View key={donut.key} style={styles.quantityContainer}>
+                  <View style={{ flex: 1 }}>
+                    <Button title="-" onPress={() => handleRemoveFromOrder(donut)}></Button>
+                  </View>
+                  <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{donut.name}</Text>
+                  <View style={{ flex: 1 }}>
+                    <Button title="+" onPress={() => handleAddToOrder(donut)}></Button>
+                  </View>
                 </View>
-                <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{donut.name}</Text>
-                <View style={{ flex: 1 }}>
-                  <Button title="+" onPress={() => handleAddToOrder(donut)}></Button>
-                </View>
-              </View>
-            );
-          })
-        }
+              );
+            })
+          }
+        </ScrollView>
         <Text style={{ fontSize: 20 }}>The total is: ${total}</Text>
         <Button title="Clear" onPress={() => handleClearOrder()}></Button>
-        <Text style={{ fontSize: 20 }}>The order:</Text>
-        <FlatList data={Object.values(order)}
-          renderItem={({item}) => <Text style={{ fontSize: 20, borderBottomWidth: 1 }}>{item.name} x{item.count}</Text>} 
-          keyExtractor={(item, index) => index.toString()}/>
-        <View style={{marginVertical: 10}}>
-          <Button title="Close Order" onPress={() => setModalVisible(true)}></Button>
-        </View>
-        <View>
-          <Button title="Back" onPress={() => setIsHomePage(true)}></Button>
+        <View style={{height: '50%'}}>
+          <Text style={{ fontSize: 20 }}>The order:</Text>
+          <FlatList data={Object.values(order)}
+            renderItem={({item}) => <Text style={{ fontSize: 20, borderBottomWidth: 1 }}>{item.name} x{item.count}</Text>} 
+            keyExtractor={(item, index) => index.toString()}/>
+          <View style={{marginVertical: 10}}>
+            <Button title="Close Order" onPress={() => setModalVisible(true)}></Button>
+          </View>
+          <View>
+            <Button title="Back" onPress={() => setIsHomePage(true)}></Button>
+          </View>
         </View>
         <Modal
           animationType="slide"
