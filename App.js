@@ -179,7 +179,7 @@ export default function App() {
               renderItem={({item}) => {
                 return (
                   <View style={{marginHorizontal: 10}}>
-                    <Button title={item.name} onPress={() => handleRemoveDonut(item)}></Button>
+                    <Button title={`${item.name} ($${item.price})`} onPress={() => handleRemoveDonut(item)}></Button>
                   </View>
                 );
               }}
