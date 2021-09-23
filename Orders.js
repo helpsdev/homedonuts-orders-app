@@ -21,7 +21,7 @@ const Orders = ({ toggleView }) => {
         }
         setOrder({...order});
       }
-  
+      donut.quantity -= 1;
       setTotal(total + donut.price);
     }
   
@@ -34,6 +34,7 @@ const Orders = ({ toggleView }) => {
         }
         setOrder({...order});
         setTotal(total - donut.price);
+        donut.quantity += 1;
       }
     }
   
@@ -64,11 +65,11 @@ const Orders = ({ toggleView }) => {
               return(
                 <View key={donut.key} style={styles.quantityContainer}>
                   <View style={{ flex: 1 }}>
-                    <Button title="-" onPress={() => handleRemoveFromOrder(donut)}></Button>
+                    <Button title="-" onPress={() => handleRemoveFromOrder(donut) }></Button>
                   </View>
-                  <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{donut.name}</Text>
+                  <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{`${donut.name} (${donut.quantity})`}</Text>
                   <View style={{ flex: 1 }}>
-                    <Button title="+" onPress={() => handleAddToOrder(donut)}></Button>
+                    <Button title="+" onPress={() => donut.quantity > 0 && handleAddToOrder(donut)}></Button>
                   </View>
                 </View>
               );

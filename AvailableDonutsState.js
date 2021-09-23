@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 
 const AvailableDonutsState = (props) => {
     const [selectedDonuts, setSelectedDonuts] = useState(defaultDonuts);
+    const [quantity, setQuantity] = useState(0);
 
 
     return(
@@ -38,6 +39,8 @@ const AvailableDonutsState = (props) => {
         selectedDonuts,
         setSelectedDonuts,
         styles,
+        quantity,
+        setQuantity,
       }}>
           {props.children}
       </AvailableDonutsContext.Provider>  
