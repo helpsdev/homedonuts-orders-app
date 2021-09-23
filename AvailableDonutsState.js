@@ -34,6 +34,7 @@ const addKey = (donut) => ({...donut, key: uuidv4()});
 
 const AvailableDonutsState = (props) => {
     const [selectedDonuts, setSelectedDonuts] = useState(defaultDonuts.map(addKey));
+    const [quantity, setQuantity] = useState(0);
 
 
     return(
@@ -41,6 +42,8 @@ const AvailableDonutsState = (props) => {
         selectedDonuts,
         setSelectedDonuts,
         styles,
+        quantity,
+        setQuantity,
       }}>
           {props.children}
       </AvailableDonutsContext.Provider>  
