@@ -1,98 +1,79 @@
 [
     {
       "name": "Mora",
-      "price": 13,
-      "key": 1
+      "price": 13
     },
     {
       "name": "Chocolate",
-      "price": 13,
-      "key": 2
+      "price": 13
     },
     {
       "name": "Glaseado",
-      "price": 13,
-      "key": 3
+      "price": 13
     },
     {
       "name": "Maple",
-      "price": 13,
-      "key": 4
+      "price": 13
     },
     {
       "name": "Mazapan",
-      "price": 19,
-      "key": 5
+      "price": 19
     },
     {
       "name": "Aleman",
-      "price": 19,
-      "key": 6
+      "price": 19
     },
     {
       "name": "Snicker",
-      "price": 19,
-      "key": 7
+      "price": 19
     },
     {
       "name": "Enjambre",
-      "price": 19,
-      "key": 8
+      "price": 19
     },
     {
       "name": "Homero",
-      "price": 16,
-      "key": 9
+      "price": 16
     },
     
     {
       "name": "Platano Nuez",
-      "price": 19,
-      "key": 10
+      "price": 19
     },
     {
       "name": "Nutella",
-      "price": 19,
-      "key": 11
+      "price": 19
     },
     {
       "name": "Gansito",
-      "price": 29,
-      "key": 12
+      "price": 29
     },
     {
       "name": "Chocorrol",
-      "price": 29,
-      "key": 13
+      "price": 29
     },
     {
       "name": "Oreo",
-      "price": 19,
-      "key": 14
+      "price": 19
     },
     {
       "name": "Azucar Cajeta",
-      "price": 19,
-      "key": 15
+      "price": 19
     },
     {
       "name": "Azucar Manzana",
-      "price": 19,
-      "key": 16
+      "price": 19
     },
     {
       "name": "Platano Vainilla",
-      "price": 19,
-      "key": 17
+      "price": 19
     },
     {
       "name": "Chocolate Vainilla",
-      "price": 19,
-      "key": 18
+      "price": 19
     },
     {
       "name": "Pay de Limon",
-      "price": 19,
-      "key": 19
+      "price": 19
     }
   ]

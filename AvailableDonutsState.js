@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import AvailableDonutsContext from './AvailableDonutsContext';
 import defaultDonuts from './defaultDonuts.json';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const styles = StyleSheet.create({
@@ -29,8 +30,10 @@ const styles = StyleSheet.create({
   });
   
 
+const addKey = (donut) => ({...donut, key: uuidv4()});
+
 const AvailableDonutsState = (props) => {
-    const [selectedDonuts, setSelectedDonuts] = useState(defaultDonuts);
+    const [selectedDonuts, setSelectedDonuts] = useState(defaultDonuts.map(addKey));
 
 
     return(
