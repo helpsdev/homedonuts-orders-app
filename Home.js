@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, Button, FlatList, TextInput } from 'react-native';
 import AvailableDonutsContext from './AvailableDonutsContext';
+import { v1 as uuidv1 } from 'uuid';
 
 const Home = ({ toggleView }) => {
     const [donutName, setDonutName] = useState(null);
@@ -13,7 +14,7 @@ const Home = ({ toggleView }) => {
       const donut = {
         name: donutName,
         price: donutPrice,
-        key: selectedDonuts.length,
+        key: uuidv1(),
       };
   
       setSelectedDonuts([...selectedDonuts, donut]);
