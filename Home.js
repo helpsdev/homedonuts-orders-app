@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, Button, FlatList, TextInput } from 'react-native';
 import AvailableDonutsContext from './AvailableDonutsContext';
-import { v1 as uuidv1 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ toggleView }) => {
     const [donutName, setDonutName] = useState(null);
@@ -14,7 +14,7 @@ const Home = ({ toggleView }) => {
       const donut = {
         name: donutName,
         price: donutPrice,
-        key: uuidv1(),
+        key: uuidv4(),
       };
   
       setSelectedDonuts([...selectedDonuts, donut]);
@@ -25,7 +25,7 @@ const Home = ({ toggleView }) => {
     const handleRemoveDonut = (donut) => {
       setSelectedDonuts(selectedDonuts.filter((d => d.key !== donut.key)))
     }
-  
+    
     return(
       <>
         <View style={styles.homePageContainer}>
