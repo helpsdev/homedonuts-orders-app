@@ -95,7 +95,7 @@ const Orders = ({ toggleView }) => {
           onRequestClose={() => setModalVisible(false)}>
           <View style={{ flex: 1, justifyContent: "center"}}>
             <Text style={{fontSize: 50}}>Total: ${total}</Text>
-            <TextInput keyboardType="number-pad" style={{fontSize: 50}} placeholder="Payment" onChangeText={(text) => handlePayment(text)}></TextInput>
+            <TextInput keyboardType="number-pad" style={{fontSize: 50, borderWidth: 3}} placeholder="Payment" onChangeText={(text) => handlePayment(text)}></TextInput>
             <Text style={{fontSize: 50}}>Change: ${clientPayment - total}</Text>
             <View>
               <Button disabled={!isCloseOrderButtonEnabled} title="OK" onPress={() => handleCloseOrder()}></Button>
