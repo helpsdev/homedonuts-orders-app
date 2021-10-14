@@ -3,7 +3,7 @@ import { Text, View, Button, FlatList, TextInput, Modal, ScrollView } from 'reac
 import AvailableDonutsContext from './AvailableDonutsContext';
 
 const Orders = ({ toggleView }) => {
-    const { selectedDonuts, styles } = useContext(AvailableDonutsContext);
+    const { selectedDonuts, setSelectedDonuts, styles } = useContext(AvailableDonutsContext);
     const [total, setTotal] = useState(0);
     const [order, setOrder] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
@@ -21,7 +21,7 @@ const Orders = ({ toggleView }) => {
         }
         setOrder({...order});
       }
-      donut.quantity -= 1;
+      donut.tempQuantity -= 1;
       setTotal(total + donut.price);
     }
   
@@ -34,16 +34,32 @@ const Orders = ({ toggleView }) => {
         }
         setOrder({...order});
         setTotal(total - donut.price);
-        donut.quantity += 1;
+        donut.tempQuantity += 1;
       }
     }
   
+    const commitDonutQuantity = () => {
+      setSelectedDonuts(selectedDonuts.map((d) => {
+        d.quantity = d.tempQuantity;
+        return d;
+      }));
+    }
+
+    const rollbackDonutQuantity = () => {
+      setSelectedDonuts(selectedDonuts.map((d) => {
+        d.tempQuantity = d.quantity;
+        return d;
+      }));
+    }
+
     const handleClearOrder = () => {
       setTotal(0);
       setOrder({});
+      rollbackDonutQuantity();
     }
     
     const handleCloseOrder = () => {
+      commitDonutQuantity();
       handleClearOrder();
       setModalVisible(false);
       setClientPayment(0);
@@ -67,9 +83,9 @@ const Orders = ({ toggleView }) => {
                   <View style={{ flex: 1 }}>
                     <Button title="-" onPress={() => handleRemoveFromOrder(donut) }></Button>
                   </View>
-                  <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{`${donut.name} (${donut.quantity})`}</Text>
+                  <Text style={{ flex: 4, fontSize: 20, textAlign: "center"}}>{`${donut.name} (${donut.tempQuantity})`}</Text>
                   <View style={{ flex: 1 }}>
-                    <Button title="+" onPress={() => donut.quantity > 0 && handleAddToOrder(donut)}></Button>
+                    <Button title="+" onPress={() => donut.tempQuantity > 0 && handleAddToOrder(donut)} color={donut.tempQuantity <= 0 ? "gray" : ""}></Button>
                   </View>
                 </View>
               );

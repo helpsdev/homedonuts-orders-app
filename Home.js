@@ -16,6 +16,7 @@ const Home = ({ toggleView }) => {
         price: donutPrice,
         key: uuidv4(),
         quantity,
+        tempQuantity: quantity,
       };
   
       setSelectedDonuts([...selectedDonuts, donut]);
@@ -33,7 +34,7 @@ const Home = ({ toggleView }) => {
         <View style={styles.homePageContainer}>
           <TextInput style={styles.textInput} placeholder="Donut name" onChangeText={(name) => setDonutName(name)} value={donutName}/>
           <TextInput style={styles.textInput} placeholder="Donut price" onChangeText={(price) => setDonutPrice(+price)} keyboardType="number-pad" value={donutPrice === 0 ? '' : donutPrice.toString()} />
-          <TextInput style={styles.textInput} placeholder="Quantity" onChangeText={(quantity) => setQuantity(+quantity)} keyboardType="number-pad" value={quantity === 0 ? '' : quantity}/>
+          <TextInput style={styles.textInput} placeholder="Quantity" onChangeText={(quantity) => setQuantity(+quantity)} keyboardType="number-pad" value={quantity === 0 ? '' : quantity.toString()}/>
           <View style={{flex: 1}}>
             <Button title="Add Donut" onPress={() => handleAddDonut()}></Button>
             <Button title="Go To Orders" onPress={() => toggleView(false)}></Button>

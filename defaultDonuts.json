@@ -1,79 +1,117 @@
 [
     {
       "name": "Mora",
-      "price": 13
+      "price": 13,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Chocolate",
-      "price": 13
+      "price": 13,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Glaseado",
-      "price": 13
+      "price": 13,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Maple",
-      "price": 13
+      "price": 13,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Mazapan",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Aleman",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Snicker",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Enjambre",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Homero",
-      "price": 16
+      "price": 16,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     
     {
       "name": "Platano Nuez",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Nutella",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Gansito",
-      "price": 29
+      "price": 29,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Chocorrol",
-      "price": 29
+      "price": 29,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Oreo",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Azucar Cajeta",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Azucar Manzana",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Platano Vainilla",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Chocolate Vainilla",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     },
     {
       "name": "Pay de Limon",
-      "price": 19
+      "price": 19,
+			"quantity": 10,
+			"tempQuantity": 10
     }
   ]
