@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { View, Button, FlatList, TextInput } from 'react-native';
+import { View, Button, FlatList, TextInput, Text } from 'react-native';
+import { Link } from "react-router-native";
 import AvailableDonutsContext from './AvailableDonutsContext';
 import { v4 as uuidv4 } from 'uuid';
 
-const Home = ({ toggleView }) => {
+const Home = () => {
     const [donutName, setDonutName] = useState(null);
     const [donutPrice, setDonutPrice] = useState(0);
     const { selectedDonuts, setSelectedDonuts, styles, quantity, setQuantity } = useContext(AvailableDonutsContext);
@@ -37,7 +38,9 @@ const Home = ({ toggleView }) => {
           <TextInput style={styles.textInput} placeholder="Quantity" onChangeText={(quantity) => setQuantity(+quantity)} keyboardType="number-pad" value={quantity === 0 ? '' : quantity.toString()}/>
           <View style={{flex: 1}}>
             <Button title="Add Donut" onPress={() => handleAddDonut()}></Button>
-            <Button title="Go To Orders" onPress={() => toggleView(false)}></Button>
+            <Link to="/orders">
+              <Text>Go To Orders</Text>
+            </Link>
           </View>
         </View>
         <View style={{flex: 1, justifyContent: "space-between", marginTop: 20}}>

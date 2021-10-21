@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { NativeRouter, Route } from "react-router-native";
 import AvailableDonutsState from './AvailableDonutsState';
 import Orders from './Orders';
 import Home from './Home';
 
 
 const App = () => {
-  const [isHomePage, setIsHomePage] = useState(true);
-
   return (
-    <AvailableDonutsState>
-      { isHomePage ? <Home toggleView={setIsHomePage} /> : <Orders toggleView={setIsHomePage} /> }
-    </AvailableDonutsState>
+    <NativeRouter>
+      <AvailableDonutsState>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/orders">
+          <Orders />
+        </Route>
+      </AvailableDonutsState>
+    </NativeRouter>
   );
 }
 
