@@ -21,6 +21,7 @@
     "react-native-screens": "~3.4.0",
     "react-native-unimodules": "~0.14.5",
     "react-native-web": "~0.13.12",
+    "react-router-native": "^5.2.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
