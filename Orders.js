@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { Text, View, Button, FlatList, TextInput, Modal, ScrollView } from 'react-native';
+import { Link } from "react-router-native";
 import AvailableDonutsContext from './AvailableDonutsContext';
 
-const Orders = ({ toggleView }) => {
+const Orders = () => {
     const { selectedDonuts, setSelectedDonuts, styles } = useContext(AvailableDonutsContext);
     const [total, setTotal] = useState(0);
     const [order, setOrder] = useState({});
@@ -103,7 +104,9 @@ const Orders = ({ toggleView }) => {
             <Button title="Close Order" onPress={() => setModalVisible(true)}></Button>
           </View>
           <View>
-            <Button title="Back" onPress={() => toggleView(true)}></Button>
+            <Link to="/">
+              <Text>Back</Text>
+            </Link>
           </View>
         </View>
         <Modal
