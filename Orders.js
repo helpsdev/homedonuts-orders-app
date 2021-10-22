@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Text, View, Button, FlatList, TextInput, Modal, ScrollView } from 'react-native';
-import { Link } from "react-router-native";
+import { useHistory } from "react-router-native";
 import AvailableDonutsContext from './AvailableDonutsContext';
 
 const Orders = () => {
@@ -10,6 +10,7 @@ const Orders = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [clientPayment, setClientPayment] = useState(0);
     const [isCloseOrderButtonEnabled, setIsCloseOrderButtonEnabled] = useState(false);
+    const history = useHistory();
     
     const handleAddToOrder = (donut) => {
       if (order[donut.key]) {
@@ -53,7 +54,7 @@ const Orders = () => {
       }));
     }
 
-    const handleClearOrder = () => {
+    const cleanupOrder = () => {
       setTotal(0);
       setOrder({});
       rollbackDonutQuantity();
@@ -61,7 +62,7 @@ const Orders = () => {
     
     const handleCloseOrder = () => {
       commitDonutQuantity();
-      handleClearOrder();
+      cleanupOrder();
       setModalVisible(false);
       setClientPayment(0);
       setIsCloseOrderButtonEnabled(false);
@@ -74,6 +75,11 @@ const Orders = () => {
       setIsCloseOrderButtonEnabled(paymentInt >= total);
     }
     
+    const handleBack = () => {
+      cleanupOrder();
+      history.push('/');
+    }
+
     return(
       <View style={styles.orderContainer}>
         <ScrollView style={{height: '50%'}}>
@@ -94,7 +100,7 @@ const Orders = () => {
           }
         </ScrollView>
         <Text style={{ fontSize: 20 }}>The total is: ${total}</Text>
-        <Button title="Clear" onPress={() => handleClearOrder()}></Button>
+        <Button title="Clear" onPress={() => cleanupOrder()}></Button>
         <View style={{height: '50%'}}>
           <Text style={{ fontSize: 20 }}>Quantity: { Object.values(order).reduce((dq, donut) => dq + donut.count, 0) }</Text>
           <FlatList data={Object.values(order)}
@@ -104,9 +110,7 @@ const Orders = () => {
             <Button title="Close Order" onPress={() => setModalVisible(true)}></Button>
           </View>
           <View>
-            <Link to="/">
-              <Text>Back</Text>
-            </Link>
+            <Button title="Back" onPress={() => handleBack()}></Button>
           </View>
         </View>
         <Modal
