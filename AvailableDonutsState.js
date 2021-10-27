@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import AvailableDonutsContext from './AvailableDonutsContext';
+import DataHandler from './DataHandler';
 import defaultDonuts from './defaultDonuts.json';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -31,23 +32,43 @@ const styles = StyleSheet.create({
   
 
 const addKey = (donut) => ({...donut, key: uuidv4()});
+const ITEMS = 'ITEMS';
 
 const AvailableDonutsState = (props) => {
-    const [selectedDonuts, setSelectedDonuts] = useState(defaultDonuts.map(addKey));
-    const [quantity, setQuantity] = useState(0);
+  const [selectedDonuts, setSelectedDonuts] = useState(null);
+  const [quantity, setQuantity] = useState(0);
 
+  const setSelectedItems = async (items) => {
+    await DataHandler.setData(ITEMS, items);
+    setSelectedDonuts(items);
+  }
 
-    return(
-      <AvailableDonutsContext.Provider value={{
-        selectedDonuts,
-        setSelectedDonuts,
-        styles,
-        quantity,
-        setQuantity,
-      }}>
-          {props.children}
-      </AvailableDonutsContext.Provider>  
-    );
+  const getSelectedItems = async () => {
+    const storedItems = await DataHandler.getData(ITEMS);
+    
+    setSelectedDonuts(storedItems);
+  }
+
+  const getDefaultItems = () => {
+    setSelectedItems(defaultDonuts.map(addKey));
+  }
+  
+  useEffect(() => {
+    getSelectedItems();
+  }, []);
+
+  return(
+    <AvailableDonutsContext.Provider value={{
+      selectedDonuts,
+      setSelectedItems,
+      getDefaultItems,
+      styles,
+      quantity,
+      setQuantity,
+    }}>
+        {props.children}
+    </AvailableDonutsContext.Provider>  
+  );
 }
 
 export default AvailableDonutsState;
