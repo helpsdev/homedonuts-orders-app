@@ -4,7 +4,7 @@ import { useHistory } from "react-router-native";
 import AvailableDonutsContext from './AvailableDonutsContext';
 
 const Orders = () => {
-    const { selectedDonuts, setSelectedDonuts, styles } = useContext(AvailableDonutsContext);
+    const { selectedDonuts: selectedItems, setSelectedItems, styles } = useContext(AvailableDonutsContext);
     const [total, setTotal] = useState(0);
     const [order, setOrder] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
@@ -41,14 +41,14 @@ const Orders = () => {
     }
   
     const commitDonutQuantity = () => {
-      setSelectedDonuts(selectedDonuts.map((d) => {
+      setSelectedItems(selectedItems.map((d) => {
         d.quantity = d.tempQuantity;
         return d;
       }));
     }
 
     const rollbackDonutQuantity = () => {
-      setSelectedDonuts(selectedDonuts.map((d) => {
+      setSelectedItems(selectedItems.map((d) => {
         d.tempQuantity = d.quantity;
         return d;
       }));
@@ -84,7 +84,7 @@ const Orders = () => {
       <View style={styles.orderContainer}>
         <ScrollView style={{height: '50%'}}>
           {
-            selectedDonuts.map((donut) => {
+            selectedItems.map((donut) => {
               return(
                 <View key={donut.key} style={styles.quantityContainer}>
                   <View style={{ flex: 1 }}>

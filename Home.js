@@ -7,11 +7,17 @@ import { v4 as uuidv4 } from 'uuid';
 const Home = () => {
     const [donutName, setDonutName] = useState(null);
     const [donutPrice, setDonutPrice] = useState(0);
-    const { selectedDonuts, setSelectedDonuts, styles, quantity, setQuantity } = useContext(AvailableDonutsContext);
+    const { 
+      selectedDonuts: selectedItems, 
+      setSelectedItems, 
+      styles, 
+      quantity, 
+      setQuantity,
+      getDefaultItems } = useContext(AvailableDonutsContext);
     const history = useHistory();
 
     const handleAddDonut = () => {
-      if(selectedDonuts.some((d) => d.name === donutName)) return;
+      if(selectedItems.some((d) => d.name === donutName)) return;
   
       const donut = {
         name: donutName,
@@ -21,14 +27,14 @@ const Home = () => {
         tempQuantity: quantity,
       };
   
-      setSelectedDonuts([...selectedDonuts, donut]);
+      setSelectedItems([...selectedItems, donut]);
       setDonutName('');
       setDonutPrice(0);
       setQuantity(0);
     }
   
     const handleRemoveDonut = (donut) => {
-      setSelectedDonuts(selectedDonuts.filter((d => d.key !== donut.key)))
+      setSelectedItems(selectedItems.filter((d => d.key !== donut.key)))
     }
     
     return(
@@ -40,10 +46,11 @@ const Home = () => {
           <View style={{flex: 1}}>
             <Button title="Add Donut" onPress={() => handleAddDonut()}></Button>
             <Button title="Go To Orders" onPress={() => history.push('/orders')}></Button>
+            <Button title="Reset Default Donuts" onPress={() => getDefaultItems()}></Button>
           </View>
         </View>
         <View style={{flex: 1, justifyContent: "space-between", marginTop: 20}}>
-          <FlatList data={selectedDonuts}
+          <FlatList data={selectedItems}
               renderItem={({item}) => {
                 return (
                   <View style={{marginHorizontal: 10, marginVertical: 2.5}}>
